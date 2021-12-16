@@ -1,25 +1,45 @@
 const modals = () => {
-    function bindModal(trigger, modal, close) {
-        trigger.addEventListener('click', (e) => {
-            if (e.target) {
-                e.preventDefault();
-            }
+    function bindModal(triggerSelector, modalSelector, closeSelector) {
 
-            modal.style.display = 'block';
-            document.body.style.overflow = 'hidden';
+        const trigger = document.querySelectorAll(triggerSelector),
+              modal = document.querySelector(modalSelector),
+              close = document.querySelector(closeSelector);
+
+
+        trigger.forEach(item => {
+            item.addEventListener('click', (e) => {
+                if (e.target) {
+                    e.preventDefault();
+                }
+    
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden';
+                //document.body.classList.add('modal-open');
+            });    
         });
-
         close.addEventListener('click', () => {
             modal.style.display = 'none';
             document.body.style.overflow = '';
+            //document.body.classList.remove('modal-open');
+        });
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.style.display = 'none';
+                document.body.style.overflow = '';
+                //document.body.classList.remove('modal-open');
+            }
         });
     }
-
-    const callEngeneerBtn = document.querySelector('.popup_engineer_btn'),
-          modalEngeneer = document.querySelector('.popup_engineer'),
-          modalEngeneerClose = document.querySelector('.popup_engineer .popup_close');
-
-    bindModal(callEngeneerBtn, modalEngeneer, modalEngeneerClose);
+    function showModalByTime(selector, time) {
+        setTimeout(function() {
+            document.querySelector(selector).style.display = 'block';
+            document.body.style.overflow = '';
+        }, time);
+    }
+    bindModal('.popup_engineer_btn', '.popup_engineer', '.popup_engineer .popup_close');
+    bindModal('.phone_link', '.popup', '.popup .popup_close');
+    //showModalByTime('.popup', 60000);
 };
 
 export default modals;
