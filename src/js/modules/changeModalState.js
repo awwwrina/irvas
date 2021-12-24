@@ -45,6 +45,18 @@ const changeModalState = (state) => {
     bindActionToElems('change', windowType, 'type');
     bindActionToElems('change', windowProfile, 'profile');
 
+   
+    //переделать
+    const triggerBtn = document.querySelector('[data-timeout]'),
+          form = document.querySelector('.popup_calc_end');
+
+    triggerBtn.addEventListener('click', () => {
+        setTimeout(function () {
+            form.style.display = 'none';
+        }, 7000);
+    });
+
+
 };
 
 export default changeModalState;
